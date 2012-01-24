@@ -1,0 +1,7 @@
+# Ignore Mac files
+.DS_STORE
+
+# Ignore Netbeans files
+/nbproject
+manifest.mf
+build.xml
