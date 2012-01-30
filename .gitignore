@@ -12,3 +12,4 @@ build.xml
 .project
 .classpath
 bin/
+/src/lib
