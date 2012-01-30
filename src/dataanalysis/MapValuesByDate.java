@@ -1,6 +1,10 @@
 package dataanalysis;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.client.Put;
@@ -13,15 +17,15 @@ import org.apache.hadoop.hbase.mapreduce.TableReducer;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 
 public class MapValuesByDate {
 
     public static class DateMapper extends TableMapper<ImmutableBytesWritable, IntWritable> {
         
         public void map(ImmutableBytesWritable key, Result value, Context context) throws IOException, InterruptedException {
-            ImmutableBytesWritable v = new ImmutableBytesWritable(value.getValue(Bytes.toBytes("attributes"), Bytes.toBytes("Date")));
-            context.write(v, new IntWritable(1));
+            String dateTime = Bytes.toString(value.getValue(Bytes.toBytes("attributes"), Bytes.toBytes("Date")));
+            String date = dateTime.split("T")[0];
+			context.write(new ImmutableBytesWritable(Bytes.toBytes(date)), new IntWritable(1));
         }
         
     }
