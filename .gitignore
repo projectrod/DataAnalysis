@@ -7,3 +7,8 @@ manifest.mf
 build.xml
 /dist/
 /build/
+
+# Ignore Eclipse files
+.project
+.classpath
+bin/
